@@ -19,10 +19,14 @@ const mime = require('mime-types');
 const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads',express.static(__dirname+'/uploads'))
+app.use('/uploads',express.static(__dirname+'/uploads'));
+const allowedOrigins = [
+    'http://localhost:5173', // your local development
+    'https://pratishtha.vercel.app' // your production site
+  ];
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173',
+    origin: allowedOrigins,
 }));
 
 
