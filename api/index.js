@@ -11,6 +11,9 @@ const {S3Client, PutObjectCommand} = require('@aws-sdk/client-s3');
 const app=express();
 const multer=require('multer')
 const fs=require('fs');
+//const AWS = require('aws-sdk');
+//const multer = require('multer');
+const multerS3 = require('multer-s3');
 const service=require('./models/service');
 const Booking=require('./models/Booking');
 const bcryptSalt=bcrypt.genSaltSync(10);
@@ -30,6 +33,23 @@ app.use(cors({
 }));
 
 
+const s3 = new S3Client({
+    region: 'ap-southeast-2',
+    credentials: {
+        accessKeyId: process.env.S3_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    },
+});
+
+const photosMiddleware = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'your-bucket-name',
+        key: function (req, file, cb) {
+            cb(null, `uploads/${Date.now()}_${file.originalname}`); // Unique filename
+        },
+    }),
+});
 
 
 async function uploadtoS3(path,originalFilename,mimetype){
@@ -141,7 +161,7 @@ app.post('/api/upload-by-link', async (req,res) =>{
     res.json(url);
 });
 
-const photosMiddleware = multer({dest:'uploads'});
+//const photosMiddleware = multer({dest:'uploads'});
 app.post('/api/upload',photosMiddleware.array('photos',100),async (req,res) =>{
     const uploadedFiles=[];
     for(let i=0;i<req.files.length;i++){
