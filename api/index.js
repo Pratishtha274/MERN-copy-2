@@ -238,3 +238,4 @@ app.get('/api/bookings',async (req,res) =>{
 });
 
 app.listen(port);
+console.log("Server is running");
