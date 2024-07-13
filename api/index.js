@@ -20,6 +20,7 @@ const bcryptSalt=bcrypt.genSaltSync(10);
 const bucket = 'pratishtha-booking-app';
 const mime = require('mime-types');
 const port = process.env.PORT || 4000;
+const helmet = require("helmet");
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+'/uploads'));
@@ -27,11 +28,29 @@ const allowedOrigins = [
     'http://localhost:5173', // your local development
     'https://pratishtha.vercel.app' // your production site
   ];
+
 app.use(cors({
     credentials: true,
     origin: allowedOrigins,
 }));
 
+app.use(helmet());
+
+// Content Security Policy configuration
+const cspDefaults = {
+    directives: {
+        defaultSrc: ["'self'"], // Allow content only from the same origin
+        imgSrc: ["'self'", "https://pratishtha.vercel.app", "https://*.amazonaws.com"], // Add your image sources
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Adjust as needed
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        connectSrc: ["'self'", "http://localhost:4000"], // Your API endpoint
+        frameSrc: ["'self'"],
+    },
+};
+
+app.use(
+    helmet.contentSecurityPolicy(cspDefaults)
+);
 
 const s3 = new S3Client({
     region: 'ap-southeast-2',
