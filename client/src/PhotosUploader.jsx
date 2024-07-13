@@ -13,7 +13,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
             alert("Please enter a photo link.");
             return;
         }
-    
+        const secureLink = photoLink.replace("http://", "https://");
         if (addedPhotos.length === 0) {
             alert("No photo added. Redirecting to services page.");
             setRedirect(true);
@@ -31,7 +31,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
         for (let i = 0; i < files.length; i++) {
             data.append('photos', files[i]);
         }
-        axios.post('/upload', data, {
+        axios.post('/api/upload', data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         }).then(response => {
             const { data: filenames } = response;

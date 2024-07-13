@@ -44,7 +44,7 @@ const s3 = new S3Client({
 const photosMiddleware = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'your-bucket-name',
+        bucket: 'pratishtha-booking-app',
         key: function (req, file, cb) {
             cb(null, `uploads/${Date.now()}_${file.originalname}`); // Unique filename
         },
