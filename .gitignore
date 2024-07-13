@@ -1,0 +1,14 @@
+.idea
+api/node_modules
+api/.env
+api/uploads/*
+!api/uploads/.gitignore
+.vercel
+# Ignore macOS system files
+.DS_Store
+
+# Ignore nested Git repositories
+api/.git
+client/.git.DS_Store
+api/.git
+client/.git
