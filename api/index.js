@@ -35,10 +35,18 @@ const privateNetworkAccessMiddleware = (req, res, next) => {
 };
 
 app.use(cors({
+    "AllowedHeaders": [
+      "*"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "HEAD"
+    ],
     credentials: true,
     origin: allowedOrigins,
     preflightContinue: true, // Ensure preflight requests are handled
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
+    "ExposeHeaders": []
 }));
 app.use(privateNetworkAccessMiddleware);
 app.use(helmet());
