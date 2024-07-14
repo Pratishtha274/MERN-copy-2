@@ -1,6 +1,6 @@
 export default function Image({ src, ...rest }) {
     // Base URL for development and production from environment variables
-    const uploadsBaseURL = import.meta.env.VITE_UPLOADS_BASE_URL;
+    const uploadsBaseURL = import.meta.env.VITE_UPLOADS_BASE_URL || 'https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/';
 
     if (src) {
         // Replace local URL with production URL if necessary
