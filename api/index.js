@@ -29,11 +29,18 @@ const allowedOrigins = [
     'https://pratishtha.vercel.app' // your production site
   ];
 
+const privateNetworkAccessMiddleware = (req, res, next) => {
+    res.header('Access-Control-Allow-Private-Network', 'true');
+    next();
+};
+
 app.use(cors({
     credentials: true,
     origin: allowedOrigins,
+    preflightContinue: true, // Ensure preflight requests are handled
+    optionsSuccessStatus: 204
 }));
-
+app.use(privateNetworkAccessMiddleware);
 app.use(helmet());
 
 // Content Security Policy configuration
