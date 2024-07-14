@@ -26,7 +26,7 @@ export default function Image({ src, ...rest }) {
     if (src) {
         // Check if the src is a local path or a URL
         const isLocal = src.includes('http://localhost:4000/uploads/');
-        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/');
+        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/');
 
         // Construct the correct URL
         if (isLocal) {
