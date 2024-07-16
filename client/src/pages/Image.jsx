@@ -55,13 +55,11 @@ export default function Image({ src, ...rest }) {
         } else if (!isS3) {
             src = `${uploadsBaseURL}${src}`;
         }
-    } else {
-        src = `${uploadsBaseURL}default.jpg`;
     }
 
-    const handleError = (e) => {
+    /*const handleError = (e) => {
         e.target.src = `${uploadsBaseURL}default.jpg`;
-    };
+    };*/
 
     return <img {...rest} src={src} alt="" onError={handleError} />;
 }
