@@ -70,7 +70,7 @@ const cspDefaults = {
         imgSrc: ["'self'", "https://pratishtha.vercel.app", "https://*.amazonaws.com"], // Add your image sources
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Adjust as needed
         styleSrc: ["'self'", "'unsafe-inline'"],
-        connectSrc: ["'self'", "http://localhost:4000"], // Your API endpoint
+        connectSrc: ["'self'", "http://localhost:4000","https://pratishtha.vercel.app"], // Your API endpoint
         frameSrc: ["'self'"],
     },
 };
