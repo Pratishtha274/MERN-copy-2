@@ -63,7 +63,7 @@
 
     /*return <img {...rest} src={src} alt=""  />;
 }*/
-export default function Image({ src, ...rest }) {
+/*export default function Image({ src, ...rest }) {
     const uploadsBaseURL = import.meta.env.VITE_UPLOADS_BASE_URL.endsWith('/')
         ? import.meta.env.VITE_UPLOADS_BASE_URL
         : `${import.meta.env.VITE_UPLOADS_BASE_URL}/`;
@@ -82,6 +82,25 @@ export default function Image({ src, ...rest }) {
     }
 
     return <img {...rest} src={src} alt="" />;
+}*/
+export default function Image({ src, ...rest }) {
+    const uploadsBaseURL = 'https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/';
+
+    if (src) {
+        const isLocal = src.includes('http://localhost:4000/uploads/');
+
+        if (isLocal) {
+            src = src.replace('http://localhost:4000/uploads/', uploadsBaseURL);
+        } else if (!src.startsWith(uploadsBaseURL)) {
+            src = `${uploadsBaseURL}${src}`;
+        }
+    } else {
+        // Fallback image if src is not defined
+        src = `${uploadsBaseURL}default.jpg`;
+    }
+
+    return <img {...rest} src={src} alt="" />;
 }
+
 
 
