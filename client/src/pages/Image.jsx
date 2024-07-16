@@ -41,7 +41,7 @@
 
     return <img {...rest} src={src} alt="" />;
 }*/
-export default function Image({ src, ...rest }) {
+/*export default function Image({ src, ...rest }) {
     const uploadsBaseURL = import.meta.env.VITE_UPLOADS_BASE_URL.endsWith('/')
         ? import.meta.env.VITE_UPLOADS_BASE_URL
         : `${import.meta.env.VITE_UPLOADS_BASE_URL}/`;
@@ -61,7 +61,27 @@ export default function Image({ src, ...rest }) {
         e.target.src = `${uploadsBaseURL}default.jpg`;
     };*/
 
-    return <img {...rest} src={src} alt=""  />;
+    /*return <img {...rest} src={src} alt=""  />;
+}*/
+export default function Image({ src, ...rest }) {
+    const uploadsBaseURL = import.meta.env.VITE_UPLOADS_BASE_URL.endsWith('/')
+        ? import.meta.env.VITE_UPLOADS_BASE_URL
+        : `${import.meta.env.VITE_UPLOADS_BASE_URL}/`;
+
+    if (src) {
+        const isLocal = src.includes('http://localhost:4000/uploads/');
+        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/');
+
+        if (isLocal) {
+            src = src.replace('http://localhost:4000/uploads/', uploadsBaseURL);
+        } else if (isS3 && !src.includes('/uploads/')) {
+            src = src.replace('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/', 'https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/');
+        } else if (!isS3) {
+            src = `${uploadsBaseURL}${src}`;
+        }
+    }
+
+    return <img {...rest} src={src} alt="" />;
 }
 
 
