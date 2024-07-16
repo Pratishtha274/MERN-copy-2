@@ -135,7 +135,7 @@ async function uploadtoS3(path,originalFilename,mimetype){
        ACL: 'public-read',
     }));
     fs.unlinkSync(path); // Remove the file after uploading
-    return `https://${bucket}.s3.amazonaws.com/${newFilename}`;
+    return `https://${bucket}.s3.amazonaws.com/uploads/${newFilename}`;
     //return `https://${bucket}.s3.amazonaws.com/${newFilename}`
 }
 function getUserDataFromReq(req){
