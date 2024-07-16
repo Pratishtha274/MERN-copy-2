@@ -61,7 +61,7 @@ export default function Image({ src, ...rest }) {
         e.target.src = `${uploadsBaseURL}default.jpg`;
     };*/
 
-    return <img {...rest} src={src} alt="" onError={handleError} />;
+    return <img {...rest} src={src} alt=""  />;
 }
 
 
