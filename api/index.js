@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express =require("express");
 const cors =require("cors");
 const mongoose = require("mongoose");
 const bcrypt=require('bcryptjs');
 const jwt=require("jsonwebtoken");
 const User=require('./models/User')
-require('dotenv').config()
+
 const cookieParser=require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const {S3Client, PutObjectCommand} = require('@aws-sdk/client-s3');
@@ -70,7 +71,7 @@ const cspDefaults = {
         imgSrc: ["'self'", "https://pratishtha.vercel.app", "https://*.amazonaws.com"], // Add your image sources
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // Adjust as needed
         styleSrc: ["'self'", "'unsafe-inline'"],
-        connectSrc: ["'self'", "http://localhost:4000"], // Your API endpoint
+        connectSrc: ["'self'", "http://localhost:4000","https://pratishtha.vercel.app"], // Your API endpoint
         frameSrc: ["'self'"],
     },
 };
@@ -134,7 +135,7 @@ async function uploadtoS3(path,originalFilename,mimetype){
        ACL: 'public-read',
     }));
     fs.unlinkSync(path); // Remove the file after uploading
-    return `https://${bucket}.s3.amazonaws.com/photo${newFilename}`;
+    return `https://${bucket}.s3.amazonaws.com/${newFilename}`;
     //return `https://${bucket}.s3.amazonaws.com/${newFilename}`
 }
 function getUserDataFromReq(req){
@@ -217,7 +218,7 @@ app.post('/api/logout',(req,res) =>{
 
 app.post('/api/upload-by-link', async (req,res) =>{
     const {link}=req.body;
-    const newName = 'photo' + Date.now() + '.jpg';
+    const newName =  'photo' + Date.now() + '.jpg';
     await imageDownloader.image({
         url: link,
         dest: '/tmp/' +newName,
