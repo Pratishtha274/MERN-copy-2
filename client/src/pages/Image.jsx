@@ -70,12 +70,12 @@ export default function Image({ src, ...rest }) {
 
     if (src) {
         const isLocal = src.includes('http://localhost:4000/uploads/');
-        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/');
+        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/');
 
         if (isLocal) {
             src = src.replace('http://localhost:4000/uploads/', uploadsBaseURL);
         } else if (isS3) {
-            src = src.replace('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/', 'https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/');
+            src = src.replace('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/', 'https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/');
         } else if (!isS3) {
             src = `${uploadsBaseURL}${src}`;
         }
