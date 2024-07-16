@@ -48,7 +48,7 @@ export default function Image({ src, ...rest }) {
 
     if (src) {
         const isLocal = src.includes('http://localhost:4000/uploads/');
-        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads');
+        const isS3 = src.includes('https://pratishtha-booking-app.s3.ap-southeast-2.amazonaws.com/uploads/');
 
         if (isLocal) {
             src = src.replace('http://localhost:4000/uploads/', uploadsBaseURL);
