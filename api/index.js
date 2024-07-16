@@ -126,7 +126,7 @@ async function uploadtoS3(path,originalFilename,mimetype){
     });
     const parts = originalFilename.split('.');
     const ext = parts[parts.length - 1];
-    const newFilename = Date.now() + '.' + ext;
+    const newFilename = `uploads/${Date.now()}.${ext}`;
     const data = await client.send(new PutObjectCommand({
        Bucket: bucket,
        Body: fs.readFileSync(path),
@@ -135,7 +135,7 @@ async function uploadtoS3(path,originalFilename,mimetype){
        ACL: 'public-read',
     }));
     fs.unlinkSync(path); // Remove the file after uploading
-    return `https://${bucket}.s3.amazonaws.com/uploads/${newFilename}`;
+    return `https://${bucket}.s3.amazonaws.com/${newFilename}`;
     //return `https://${bucket}.s3.amazonaws.com/${newFilename}`
 }
 function getUserDataFromReq(req){
