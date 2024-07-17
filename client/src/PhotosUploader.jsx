@@ -14,11 +14,11 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
             return;
         }
         const secureLink = photoLink.replace("http://", "https://");
-        /*if (addedPhotos.length === 0) {
+        if (addedPhotos.length === 0) {
             alert("No photo added. Redirecting to services page.");
             setRedirect(true);
             return; // Prevent further execution
-        }*/
+        }
 
         const { data: filename } = await axios.post('/upload-by-link', { link: photoLink });
         onChange(prev => [...prev, filename]);
