@@ -92,7 +92,7 @@ export default function Image({ src, ...rest }) {
         if (isLocal) {
             src = src.replace('http://localhost:4000/uploads/', uploadsBaseURL);
         } else if (!src.startsWith(uploadsBaseURL)) {
-            src = `${uploadsBaseURL}`;
+            src = `${src}`;
         }
     } else {
         // Fallback image if src is not defined
